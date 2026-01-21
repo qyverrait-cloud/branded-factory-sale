@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma"
 
 // Force dynamic rendering for this route
 export const dynamic = 'force-dynamic'
+export const revalidate = 0
 
 // GET all products
 export async function GET() {
