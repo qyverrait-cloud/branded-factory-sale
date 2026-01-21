@@ -15,16 +15,20 @@ const nextConfig = {
   // Performance optimizations
   compress: true,
   poweredByHeader: false,
-  reactStrictMode: true,
+  reactStrictMode: false, // Disabled to prevent SSR issues
   swcMinify: true,
   // Hostinger deployment - enable standalone mode
   output: 'standalone', // Required for Hostinger deployment
   // Optimize production builds
   productionBrowserSourceMaps: false,
-  // Disable problematic features
+  // Disable static optimization completely
   generateBuildId: async () => {
     return 'build-' + Date.now()
   },
+  // Skip trailing slash
+  skipTrailingSlashRedirect: true,
+  // Disable x-powered-by
+  poweredByHeader: false,
   // Experimental features for better performance
   // Note: optimizeCss requires critters package, removed to avoid build errors
   // experimental: {
