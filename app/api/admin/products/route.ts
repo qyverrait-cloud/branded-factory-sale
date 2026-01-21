@@ -62,23 +62,23 @@ export async function POST(request: Request) {
     })
 
     return NextResponse.json({ product, success: true })
-  }  catch (error) {
-  if (error instanceof Error) {
+  } catch (error) {
+    console.error("Admin products POST error:", error)
+    if (error instanceof Error) {
+      return NextResponse.json(
+        {
+          error: error.message,
+          stack: error.stack,
+        },
+        { status: 500 }
+      )
+    }
     return NextResponse.json(
-      {
-        error: error.message,
-        stack: error.stack,
-      },
+      { error: "Unknown server error" },
       { status: 500 }
     )
   }
-
-  return NextResponse.json(
-    { error: "Unknown server error" },
-    { status: 500 }
-  )
 }
-  }
 
 
 // PUT update product
