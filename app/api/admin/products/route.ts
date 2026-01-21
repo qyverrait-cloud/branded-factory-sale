@@ -7,20 +7,28 @@ export const dynamic = 'force-dynamic'
 // GET all products
 export async function GET() {
   try {
+    console.log("[Admin Products GET] Starting request")
     const products = await prisma.product.findMany({
       orderBy: { createdAt: "desc" },
     })
+    console.log(`[Admin Products GET] Found ${products.length} products`)
     return NextResponse.json({ products })
   } catch (error) {
     console.error("Admin products GET error:", error)
-    return NextResponse.json({ error: "Failed to fetch products" }, { status: 500 })
+    return NextResponse.json({ 
+      error: "Failed to fetch products",
+      details: error instanceof Error ? error.message : "Unknown error"
+    }, { status: 500 })
   }
 }
 
 // POST create new product
 export async function POST(request: Request) {
   try {
+    console.log("[Admin Products POST] Starting request")
     const body = await request.json()
+    console.log("[Admin Products POST] Received body:", JSON.stringify(body).substring(0, 200))
+    
     const {
       name,
       brand,
@@ -37,9 +45,11 @@ export async function POST(request: Request) {
     } = body
 
     if (!name || !brand || !category || !price) {
+      console.log("[Admin Products POST] Missing required fields")
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
     }
 
+    console.log("[Admin Products POST] Creating product:", name)
     const product = await prisma.product.create({
       data: {
         name,
@@ -61,6 +71,7 @@ export async function POST(request: Request) {
       },
     })
 
+    console.log("[Admin Products POST] Product created:", product.id)
     return NextResponse.json({ product, success: true })
   } catch (error) {
     console.error("Admin products POST error:", error)
