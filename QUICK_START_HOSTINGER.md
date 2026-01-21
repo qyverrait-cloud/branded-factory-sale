@@ -12,15 +12,18 @@
 
 ### Step 2: Get Connection String (1 minute)
 
-Format:
+**Your Connection String (Ready to Use):**
 ```
-mysql://u123456789_username:password@localhost:3306/u123456789_database
+mysql://u136829732_brandedfactory:Branded232323@srv2145.hstgr.io:3306/u136829732_brandedfactory
 ```
 
-Replace:
-- `u123456789_username` → Your database username
-- `password` → Your database password  
-- `u123456789_database` → Your database name
+**Your Database Details:**
+- Database: `u136829732_brandedfactory`
+- User: `u136829732_brandedfactory`
+- Host: `srv2145.hstgr.io`
+- Port: `3306`
+
+📝 **See `HOSTINGER_YOUR_CONFIG.md` for your complete configuration**
 
 ### Step 3: Deploy Code (1 minute)
 
@@ -38,11 +41,13 @@ Replace:
 In hPanel → **Advanced** → **Environment Variables**:
 
 ```
-DATABASE_URL=mysql://u123456789_user:pass@localhost:3306/u123456789_db
+DATABASE_URL=mysql://u136829732_brandedfactory:Branded232323@srv2145.hstgr.io:3306/u136829732_brandedfactory
 NEXT_PUBLIC_SITE_URL=https://yourdomain.com
 NODE_ENV=production
 CONTACT_EMAIL=brandedfactorysaleufc@gmail.com
 ```
+
+**Note:** Replace `https://yourdomain.com` with your actual domain name.
 
 ### Step 5: Setup Database (30 seconds)
 
@@ -94,6 +99,7 @@ Visit `https://yourdomain.com` to see your site.
 
 ## 📚 Full Guides
 
+- **Your Configuration**: See `HOSTINGER_YOUR_CONFIG.md` ⭐ (Your specific credentials)
 - **Complete Setup**: See `HOSTINGER_COMPLETE_DEPLOYMENT.md`
 - **Database Details**: See `HOSTINGER_MYSQL_SETUP.md`
 - **General Deployment**: See `HOSTINGER_DEPLOYMENT.md`

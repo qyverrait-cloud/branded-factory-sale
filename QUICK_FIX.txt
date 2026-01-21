@@ -1,0 +1,47 @@
+═══════════════════════════════════════════════════════════════
+  QUICK FIX FOR DATABASE CONNECTION ERROR
+═══════════════════════════════════════════════════════════════
+
+ERROR: Can't reach database server at `localhost:3306`
+
+SOLUTION: Use Remote Connection Instead
+
+───────────────────────────────────────────────────────────────
+STEP 1: Update .env.local file
+───────────────────────────────────────────────────────────────
+
+Change this line in .env.local:
+
+FROM:
+DATABASE_URL="mysql://u136829732_brandedfactory:Branded232323@localhost:3306/u136829732_brandedfactory"
+
+TO:
+DATABASE_URL="mysql://u136829732_brandedfactory:Branded232323@srv2145.hstgr.io:3306/u136829732_brandedfactory"
+
+───────────────────────────────────────────────────────────────
+STEP 2: Test Connection
+───────────────────────────────────────────────────────────────
+npx prisma db pull
+
+───────────────────────────────────────────────────────────────
+STEP 3: Create Tables
+───────────────────────────────────────────────────────────────
+npm run db:push
+
+───────────────────────────────────────────────────────────────
+COMPLETE .env.local FILE:
+───────────────────────────────────────────────────────────────
+
+DATABASE_URL="mysql://u136829732_brandedfactory:Branded232323@srv2145.hstgr.io:3306/u136829732_brandedfactory"
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+NODE_ENV=development
+CONTACT_EMAIL=brandedfactorysaleufc@gmail.com
+
+═══════════════════════════════════════════════════════════════
+
+NOTE: 
+- For LOCAL development: Use srv2145.hstgr.io (remote)
+- For PRODUCTION (Hostinger): Use localhost (works on server)
+
+═══════════════════════════════════════════════════════════════
+

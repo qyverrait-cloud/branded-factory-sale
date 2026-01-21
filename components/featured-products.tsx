@@ -11,9 +11,10 @@ const fetcher = (url: string) => fetch(url).then((r) => r.json())
 
 export function FeaturedProducts() {
   const { data, isLoading } = useSWR("/api/products?sort=rating&limit=8", fetcher, {
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-    dedupingInterval: 60000, // Cache for 1 minute
+    revalidateOnFocus: true,
+    revalidateOnReconnect: true,
+    dedupingInterval: 5000, // Cache for 5 seconds (faster updates)
+    refreshInterval: 10000, // Auto-refresh every 10 seconds
   })
   
   const products = useMemo(() => (data?.products || []).slice(0, 8), [data])

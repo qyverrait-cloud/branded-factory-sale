@@ -11,6 +11,10 @@
     "db:push": "prisma db push",
     "db:migrate": "prisma migrate deploy",
     "db:studio": "prisma studio",
+    "db:setup": "node scripts/init-database.js",
+    "db:init": "node scripts/init-database.js",
+    "db:api-init": "curl http://localhost:3000/api/init-db || echo 'Start server first: npm run dev'",
+    "setup": "npm install && node scripts/init-database.js",
     "postinstall": "prisma generate"
   },
   "dependencies": {

@@ -1,0 +1,74 @@
+═══════════════════════════════════════════════════════════════
+  QUICK DATABASE SETUP - COPY & PASTE
+═══════════════════════════════════════════════════════════════
+
+STEP 1: Create .env.local file in project root
+───────────────────────────────────────────────────────────────
+
+Create file: .env.local
+
+Add this content:
+
+DATABASE_URL="mysql://u136829732_brandedfactory:Branded232323@localhost:3306/u136829732_brandedfactory"
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+NODE_ENV=development
+CONTACT_EMAIL=brandedfactorysaleufc@gmail.com
+
+
+STEP 2: Install dependencies
+───────────────────────────────────────────────────────────────
+npm install
+
+
+STEP 3: Generate Prisma Client
+───────────────────────────────────────────────────────────────
+npm run db:generate
+
+
+STEP 4: Test Database Connection
+───────────────────────────────────────────────────────────────
+npx prisma db pull
+
+
+STEP 5: Create Database Tables
+───────────────────────────────────────────────────────────────
+npm run db:push
+
+
+STEP 6: Start Development Server
+───────────────────────────────────────────────────────────────
+npm run dev
+
+
+STEP 7: Test API Health Check
+───────────────────────────────────────────────────────────────
+Visit: http://localhost:3000/api/health
+
+Should return:
+{
+  "status": "ok",
+  "database": { "connected": true }
+}
+
+
+═══════════════════════════════════════════════════════════════
+  FOR PRODUCTION (HOSTINGER)
+═══════════════════════════════════════════════════════════════
+
+Set in Hostinger hPanel → Advanced → Environment Variables:
+
+DATABASE_URL=mysql://u136829732_brandedfactory:Branded232323@localhost:3306/u136829732_brandedfactory
+NEXT_PUBLIC_SITE_URL=https://yourdomain.com
+NODE_ENV=production
+CONTACT_EMAIL=brandedfactorysaleufc@gmail.com
+
+
+═══════════════════════════════════════════════════════════════
+  YOUR DATABASE CONNECTION STRING
+═══════════════════════════════════════════════════════════════
+
+mysql://u136829732_brandedfactory:Branded232323@localhost:3306/u136829732_brandedfactory
+
+
+═══════════════════════════════════════════════════════════════
+

@@ -41,7 +41,7 @@ export function AdminLogin({ onLogin }: AdminLoginProps) {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-3 sm:p-4 bg-white">
+    <div className="min-h-screen flex items-center justify-center p-3 sm:p-4 bg-background">
       <div className="w-full max-w-md">
         <div className="text-center mb-6 sm:mb-8">
           <div className="flex items-center justify-center space-x-2 sm:space-x-3 mb-3 sm:mb-4">

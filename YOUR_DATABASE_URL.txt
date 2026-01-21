@@ -1,0 +1,6 @@
+Your Hostinger MySQL Connection String:
+
+mysql://u136829732_brandedfactory:Branded232323@srv2145.hstgr.io:3306/u136829732_brandedfactory
+
+Copy this entire line and use it as your DATABASE_URL environment variable.
+

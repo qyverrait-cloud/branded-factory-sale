@@ -54,53 +54,53 @@
   --pill-fill: oklch(1 0 0); /* Pure white fill for brand pill */
 }
 
-/* Dark theme tokens - Pure White Dark Mode (kept white) */
+/* Dark theme tokens - Proper Dark Mode */
 .dark {
-  /* Dark mode - Still white for consistency */
-  --background: oklch(1 0 0); /* Pure white background */
-  --foreground: oklch(0.15 0.02 0); /* Dark text */
-  --card: oklch(1 0 0); /* Pure white cards */
-  --card-foreground: oklch(0.15 0.02 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.15 0.02 0);
-  --primary: oklch(0.20 0.01 0); /* Dark gray/black */
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.96 0.005 0); /* Very light gray */
-  --secondary-foreground: oklch(0.15 0.02 0);
-  --muted: oklch(0.98 0.002 0);
-  --muted-foreground: oklch(0.50 0.01 0);
-  --accent: oklch(0.25 0.01 0); /* Dark gray accent */
-  --accent-foreground: oklch(1 0 0);
+  /* Dark mode - Dark background with light text */
+  --background: oklch(0.15 0.01 0); /* Dark background */
+  --foreground: oklch(0.98 0.002 0); /* Light text */
+  --card: oklch(0.20 0.01 0); /* Darker cards */
+  --card-foreground: oklch(0.98 0.002 0);
+  --popover: oklch(0.20 0.01 0);
+  --popover-foreground: oklch(0.98 0.002 0);
+  --primary: oklch(0.70 0.15 250); /* Bright primary color */
+  --primary-foreground: oklch(0.15 0.01 0);
+  --secondary: oklch(0.25 0.01 0); /* Dark gray */
+  --secondary-foreground: oklch(0.98 0.002 0);
+  --muted: oklch(0.25 0.01 0);
+  --muted-foreground: oklch(0.65 0.01 0);
+  --accent: oklch(0.30 0.02 0); /* Dark accent */
+  --accent-foreground: oklch(0.98 0.002 0);
   --destructive: oklch(0.60 0.25 25);
-  --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.95 0.005 0);
-  --input: oklch(0.98 0.002 0);
-  --ring: oklch(0.30 0.01 0);
-  --chart-1: oklch(0.30 0.01 0);
-  --chart-2: oklch(0.40 0.01 0);
-  --chart-3: oklch(0.50 0.01 0);
-  --chart-4: oklch(0.60 0.01 0);
-  --chart-5: oklch(0.70 0.01 0);
+  --destructive-foreground: oklch(0.98 0.002 0);
+  --border: oklch(0.30 0.01 0);
+  --input: oklch(0.25 0.01 0);
+  --ring: oklch(0.70 0.15 250);
+  --chart-1: oklch(0.70 0.15 250);
+  --chart-2: oklch(0.65 0.15 200);
+  --chart-3: oklch(0.60 0.15 150);
+  --chart-4: oklch(0.55 0.15 100);
+  --chart-5: oklch(0.50 0.15 50);
 
   /* Sidebar tokens (dark) */
-  --sidebar: oklch(1 0 0);
-  --sidebar-foreground: oklch(0.15 0.02 0);
-  --sidebar-primary: oklch(0.20 0.01 0);
-  --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.98 0.002 0);
-  --sidebar-accent-foreground: oklch(0.15 0.02 0);
-  --sidebar-border: oklch(0.95 0.005 0);
-  --sidebar-ring: oklch(0.30 0.01 0);
+  --sidebar: oklch(0.18 0.01 0);
+  --sidebar-foreground: oklch(0.98 0.002 0);
+  --sidebar-primary: oklch(0.70 0.15 250);
+  --sidebar-primary-foreground: oklch(0.15 0.01 0);
+  --sidebar-accent: oklch(0.25 0.01 0);
+  --sidebar-accent-foreground: oklch(0.98 0.002 0);
+  --sidebar-border: oklch(0.30 0.01 0);
+  --sidebar-ring: oklch(0.70 0.15 250);
 
-  /* Sale red and band colors - Pure white theme */
-  --sale-red: oklch(0.30 0.01 0);
-  --band-top: oklch(1 0 0); /* Pure white */
-  --band-top-foreground: oklch(0.15 0.02 0);
-  --band-mid: oklch(1 0 0); /* Pure white */
-  --band-mid-foreground: oklch(0.15 0.02 0);
-  --band-bottom: oklch(1 0 0); /* Pure white */
-  --band-bottom-foreground: oklch(0.15 0.02 0);
-  --pill-fill: oklch(1 0 0); /* Pure white fill for brand pill */
+  /* Sale red and band colors - Dark theme */
+  --sale-red: oklch(0.60 0.25 25);
+  --band-top: oklch(0.20 0.01 0);
+  --band-top-foreground: oklch(0.98 0.002 0);
+  --band-mid: oklch(0.22 0.01 0);
+  --band-mid-foreground: oklch(0.98 0.002 0);
+  --band-bottom: oklch(0.20 0.01 0);
+  --band-bottom-foreground: oklch(0.98 0.002 0);
+  --pill-fill: oklch(0.25 0.01 0);
 }
 
 @theme inline {
@@ -148,9 +148,17 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    @apply bg-background text-foreground;
+  }
   body {
     @apply bg-background text-foreground;
     transition: background-color 0.3s ease, color 0.3s ease;
+    font-family: var(--font-geist-sans), system-ui, sans-serif;
+  }
+  /* Ensure text is visible in both themes */
+  h1, h2, h3, h4, h5, h6, p, span, div, a, button {
+    @apply text-foreground;
   }
   /* Improve touch targets on mobile */
   button, a {

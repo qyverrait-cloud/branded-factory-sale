@@ -73,7 +73,7 @@ const categories = [
 
 export function CategorySection() {
   return (
-    <section className="py-12 sm:py-16 md:py-20 bg-white relative overflow-hidden">
+    <section className="py-12 sm:py-16 md:py-20 bg-background relative overflow-hidden">
       
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
         <div className="text-center mb-8 sm:mb-12 animate-fade-in-up">
@@ -109,7 +109,7 @@ export function CategorySection() {
                         decoding="async"
                       />
                       {/* Icon Badge */}
-                      <div className="absolute top-2 right-2 w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-md border border-gray-200">
+                      <div className="absolute top-2 right-2 w-10 h-10 bg-card rounded-lg flex items-center justify-center shadow-md border border-border">
                         <IconComponent className="h-5 w-5 text-foreground" />
                       </div>
                     </div>

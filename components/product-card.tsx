@@ -211,14 +211,14 @@ export function ProductCard({ product, viewMode }: ProductCardProps) {
                     <button
                       aria-label="Previous"
                       onClick={prevMedia}
-                      className="absolute left-2 md:left-4 bg-white/80 hover:bg-white rounded-full p-2"
+                      className="absolute left-2 md:left-4 bg-background/80 hover:bg-background rounded-full p-2 backdrop-blur-sm"
                     >
                       <ChevronLeft className="h-5 w-5" />
                     </button>
                     <button
                       aria-label="Next"
                       onClick={nextMedia}
-                      className="absolute right-2 md:right-4 bg-white/80 hover:bg-white rounded-full p-2"
+                      className="absolute right-2 md:right-4 bg-background/80 hover:bg-background rounded-full p-2 backdrop-blur-sm"
                     >
                       <ChevronRight className="h-5 w-5" />
                     </button>

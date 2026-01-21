@@ -1,0 +1,78 @@
+═══════════════════════════════════════════════════════════════
+  HOSTINGER SETUP - COPY & PASTE THESE COMMANDS
+═══════════════════════════════════════════════════════════════
+
+STEP 1: Connect to Hostinger via SSH
+───────────────────────────────────────────────────────────────
+ssh username@yourdomain.com
+
+(Replace username and yourdomain.com with your actual details)
+
+
+STEP 2: Navigate to Project Directory
+───────────────────────────────────────────────────────────────
+cd public_html
+
+
+STEP 3: Install Dependencies
+───────────────────────────────────────────────────────────────
+npm install
+
+
+STEP 4: Generate Prisma Client
+───────────────────────────────────────────────────────────────
+npm run db:generate
+
+
+STEP 5: Create Database Tables
+───────────────────────────────────────────────────────────────
+npm run db:push
+
+
+STEP 6: Start Application with PM2 (Recommended)
+───────────────────────────────────────────────────────────────
+npm install -g pm2
+pm2 start npm --name "branded-factory-sale" -- start
+pm2 save
+pm2 startup
+
+
+═══════════════════════════════════════════════════════════════
+  ALL-IN-ONE COMMAND (Copy everything below)
+═══════════════════════════════════════════════════════════════
+
+cd public_html && npm install && npm run db:generate && npm run db:push && npm install -g pm2 && pm2 start npm --name "branded-factory-sale" -- start && pm2 save && pm2 startup
+
+
+═══════════════════════════════════════════════════════════════
+  IMPORTANT: Set Environment Variables First!
+═══════════════════════════════════════════════════════════════
+
+Before running commands, set these in Hostinger hPanel:
+Advanced → Environment Variables
+
+DATABASE_URL=mysql://u136829732_brandedfactory:Branded232323@srv2145.hstgr.io:3306/u136829732_brandedfactory
+NEXT_PUBLIC_SITE_URL=https://yourdomain.com
+NODE_ENV=production
+CONTACT_EMAIL=brandedfactorysaleufc@gmail.com
+
+
+═══════════════════════════════════════════════════════════════
+  VERIFICATION COMMANDS
+═══════════════════════════════════════════════════════════════
+
+# Check if app is running
+pm2 list
+
+# View logs
+pm2 logs branded-factory-sale
+
+# Restart app
+pm2 restart branded-factory-sale
+
+# Test database connection
+npx prisma db pull
+
+
+═══════════════════════════════════════════════════════════════
+

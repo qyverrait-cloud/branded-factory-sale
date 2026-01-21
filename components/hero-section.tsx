@@ -17,16 +17,16 @@ export function HeroSection() {
     } catch {}
   }, [])
   return (
-    <section className="relative flex items-center justify-center overflow-hidden bg-white text-foreground min-h-[60vh] sm:min-h-[70vh] md:min-h-[85vh]">
-      {/* Pure white background - minimal gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-gray-50/30" />
+    <section className="relative flex items-center justify-center overflow-hidden bg-background text-foreground min-h-[60vh] sm:min-h-[70vh] md:min-h-[85vh]">
+      {/* Background gradient - adapts to theme */}
+      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted/30" />
       
       <div className="container mx-auto px-4 sm:px-6 relative z-10 py-8 sm:py-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left Side - Content */}
           <div className="space-y-4 sm:space-y-6 md:space-y-8 animate-fade-in-up">
             <div className="space-y-3 sm:space-y-4">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-100 border border-gray-200">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-muted border border-border">
                 <Award className="h-4 w-4 text-foreground" />
                 <span className="text-xs sm:text-sm font-semibold text-foreground">India's #1 Wholesale Platform</span>
               </div>
@@ -41,7 +41,7 @@ export function HeroSection() {
             {/* Stats Row */}
             <div className="flex flex-wrap gap-4 sm:gap-6 pt-2">
               <div className="flex items-center gap-2 animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
-                <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center">
                   <Users className="h-5 w-5 text-foreground" />
                 </div>
                 <div>
@@ -50,7 +50,7 @@ export function HeroSection() {
                 </div>
               </div>
               <div className="flex items-center gap-2 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
-                <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center">
                   <ShoppingCart className="h-5 w-5 text-foreground" />
                 </div>
                 <div>
@@ -59,7 +59,7 @@ export function HeroSection() {
                 </div>
               </div>
               <div className="flex items-center gap-2 animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
-                <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center">
                   <TrendingUp className="h-5 w-5 text-foreground" />
                 </div>
                 <div>
@@ -76,7 +76,7 @@ export function HeroSection() {
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="px-6 sm:px-8 py-2.5 sm:py-3 bg-white border-gray-300 text-foreground hover:bg-gray-50 text-sm sm:text-base w-full sm:w-auto min-h-[48px] touch-manipulation">
+              <Button asChild variant="outline" size="lg" className="px-6 sm:px-8 py-2.5 sm:py-3 bg-background border-border text-foreground hover:bg-muted text-sm sm:text-base w-full sm:w-auto min-h-[48px] touch-manipulation">
                 <Link href="/about">Learn About Wholesale</Link>
               </Button>
             </div>

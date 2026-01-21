@@ -25,7 +25,7 @@ export function ScrollingTagline() {
   }, [])
 
   return (
-    <div className="bg-white border-b border-gray-200 py-2.5 sm:py-3 overflow-hidden relative">
+    <div className="bg-background border-b border-border py-2.5 sm:py-3 overflow-hidden relative">
       <div className="container mx-auto px-4 relative z-10">
         <div className="flex items-center justify-center">
           <div className="relative w-full h-7 sm:h-8 overflow-hidden">

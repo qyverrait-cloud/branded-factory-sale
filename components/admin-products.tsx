@@ -98,6 +98,14 @@ export function AdminProducts() {
       if (response.ok) {
         toast.success("Product added successfully!")
         loadProducts() // Reload from database
+        // Trigger refresh on frontend
+        window.dispatchEvent(new Event("productUpdated"))
+        // Also refresh SWR cache
+        if (typeof window !== "undefined") {
+          const { mutate } = await import("swr")
+          mutate("/api/products")
+          mutate((key) => typeof key === "string" && key.startsWith("/api/products"))
+        }
       } else {
         toast.error("Failed to add product")
       }
@@ -142,6 +150,14 @@ export function AdminProducts() {
       if (response.ok) {
         toast.success("Product updated successfully!")
         loadProducts() // Reload from database
+        // Trigger refresh on frontend
+        window.dispatchEvent(new Event("productUpdated"))
+        // Also refresh SWR cache
+        if (typeof window !== "undefined") {
+          const { mutate } = await import("swr")
+          mutate("/api/products")
+          mutate((key) => typeof key === "string" && key.startsWith("/api/products"))
+        }
       } else {
         toast.error("Failed to update product")
       }
@@ -162,6 +178,14 @@ export function AdminProducts() {
       if (response.ok) {
         toast.success("Product deleted successfully!")
         loadProducts() // Reload from database
+        // Trigger refresh on frontend
+        window.dispatchEvent(new Event("productUpdated"))
+        // Also refresh SWR cache
+        if (typeof window !== "undefined") {
+          const { mutate } = await import("swr")
+          mutate("/api/products")
+          mutate((key) => typeof key === "string" && key.startsWith("/api/products"))
+        }
       } else {
         toast.error("Failed to delete product")
       }

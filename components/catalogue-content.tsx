@@ -1,12 +1,12 @@
 "use client"
 
 import { useState, useMemo, useEffect } from "react"
-import useSWR from "swr"
+import useSWR, { mutate as globalMutate } from "swr"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Search, Grid, List, Filter } from "lucide-react"
+import { Search, Grid, List, Filter, RefreshCw } from "lucide-react"
 import { ProductCard } from "@/components/product-card"
 import { useSearchParams } from "next/navigation"
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
@@ -62,11 +62,12 @@ export function CatalogueContent() {
     return `/api/products?${params.toString()}`
   }, [searchQuery, selectedCategory, selectedBrand, sortBy, segment])
 
-  // Fetch products from API using SWR
-  const { data, isLoading, error } = useSWR(apiUrl, fetcher, {
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-    dedupingInterval: 30000, // Cache for 30 seconds
+  // Fetch products from API using SWR with real-time updates
+  const { data, isLoading, error, mutate } = useSWR(apiUrl, fetcher, {
+    revalidateOnFocus: true,
+    revalidateOnReconnect: true,
+    dedupingInterval: 5000, // Cache for 5 seconds (faster updates)
+    refreshInterval: 10000, // Auto-refresh every 10 seconds
   })
 
   const products: Product[] = (data?.products as Product[]) || []
@@ -78,14 +79,50 @@ export function CatalogueContent() {
     }
   }, [facetBrands, selectedBrand])
 
+  // Listen for storage events to refresh when products are added/updated
+  useEffect(() => {
+    const handleStorageChange = () => {
+      mutate() // Refresh products
+      globalMutate("/api/products") // Refresh all product queries
+    }
+
+    // Listen for custom events
+    window.addEventListener("productUpdated", handleStorageChange)
+    
+    // Also listen for focus to refresh when user returns to page
+    const handleFocus = () => {
+      mutate()
+    }
+    window.addEventListener("focus", handleFocus)
+
+    return () => {
+      window.removeEventListener("productUpdated", handleStorageChange)
+      window.removeEventListener("focus", handleFocus)
+    }
+  }, [mutate])
+
   return (
     <div className="container mx-auto px-4 sm:px-6">
       {/* Header */}
-      <div className="mb-6 sm:mb-8">
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2">Product Catalogue</h1>
-        <p className="text-sm sm:text-base text-muted-foreground">
-          Browse our extensive collection of wholesale products from premium brands
-        </p>
+      <div className="mb-6 sm:mb-8 flex items-start justify-between gap-4">
+        <div>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2">Product Catalogue</h1>
+          <p className="text-sm sm:text-base text-muted-foreground">
+            Browse our extensive collection of wholesale products from premium brands
+          </p>
+        </div>
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={() => {
+            mutate()
+            globalMutate("/api/products")
+          }}
+          className="shrink-0 bg-transparent"
+          title="Refresh products"
+        >
+          <RefreshCw className="h-4 w-4" />
+        </Button>
       </div>
 
       {/* Filters */}

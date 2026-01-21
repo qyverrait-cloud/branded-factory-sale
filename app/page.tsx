@@ -25,16 +25,16 @@ export default function HomePage() {
       <ScrollingTagline />
       <Header />
       <main>
-        <section className="bg-white text-foreground">
+        <section className="bg-background text-foreground">
           <HeroSection />
         </section>
-        <section className="bg-white text-foreground">
+        <section className="bg-background text-foreground">
           <CategorySection />
         </section>
         <Suspense fallback={<div className="py-12 text-center">Loading products...</div>}>
           <FeaturedProducts />
         </Suspense>
-        <section className="bg-white text-foreground">
+        <section className="bg-background text-foreground">
           <HighlightsSection />
           <StatsSection />
         </section>
