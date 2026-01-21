@@ -8,6 +8,7 @@ export const revalidate = 0
 // GET all products
 export async function GET() {
   try {
+    await prisma.$connect()
     const products = await prisma.product.findMany({
       orderBy: { createdAt: "desc" },
       take: 100,
@@ -19,6 +20,8 @@ export async function GET() {
       error: "Failed to fetch products",
       details: error instanceof Error ? error.message : "Unknown error"
     }, { status: 500 })
+  } finally {
+    await prisma.$disconnect()
   }
 }
 
