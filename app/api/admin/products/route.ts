@@ -8,13 +8,24 @@ export const dynamic = 'force-dynamic'
 export async function GET() {
   try {
     console.log("[Admin Products GET] Starting request")
+    
+    // Explicitly connect
+    await prisma.$connect()
+    
     const products = await prisma.product.findMany({
       orderBy: { createdAt: "desc" },
+      take: 100, // Limit results
     })
+    
     console.log(`[Admin Products GET] Found ${products.length} products`)
+    
+    // Disconnect after query
+    await prisma.$disconnect()
+    
     return NextResponse.json({ products })
   } catch (error) {
     console.error("Admin products GET error:", error)
+    await prisma.$disconnect()
     return NextResponse.json({ 
       error: "Failed to fetch products",
       details: error instanceof Error ? error.message : "Unknown error"
