@@ -7,13 +7,12 @@ export async function GET() {
     const products = await prisma.product.findMany({
       orderBy: { createdAt: "desc" },
     })
-   return NextResponse.json(
-  {
-    error: error.message,
-    stack: error.stack
-  },
-  { status: 500 }
-);
+    return NextResponse.json({ products })
+  } catch (error) {
+    console.error("Admin products GET error:", error)
+    return NextResponse.json({ error: "Failed to fetch products" }, { status: 500 })
+  }
+}
 
 // POST create new product
 export async function POST(request: Request) {
@@ -60,11 +59,24 @@ export async function POST(request: Request) {
     })
 
     return NextResponse.json({ product, success: true })
-  } catch (error) {
-    console.error("Admin products POST error:", error)
-    return NextResponse.json({ error: "Failed to create product" }, { status: 500 })
+  }  catch (error) {
+  if (error instanceof Error) {
+    return NextResponse.json(
+      {
+        error: error.message,
+        stack: error.stack,
+      },
+      { status: 500 }
+    )
   }
+
+  return NextResponse.json(
+    { error: "Unknown server error" },
+    { status: 500 }
+  )
 }
+  }
+
 
 // PUT update product
 export async function PUT(request: Request) {
