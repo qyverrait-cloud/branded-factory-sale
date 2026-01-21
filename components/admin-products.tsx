@@ -18,7 +18,7 @@ export function AdminProducts() {
   const loadProducts = async () => {
     try {
       setIsLoading(true)
-      const response = await fetch("/api/admin/products")
+      const response = await fetch("/api/products-admin")
       
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({ error: "Unknown error" }))
@@ -84,7 +84,7 @@ export function AdminProducts() {
     const videos = videoUrl.trim() ? [videoUrl.trim()] : []
 
     try {
-      const response = await fetch("/api/admin/products", {
+      const response = await fetch("/api/products-admin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -142,7 +142,7 @@ export function AdminProducts() {
     const videos = videoUrl.trim() ? [videoUrl.trim()] : []
 
     try {
-      const response = await fetch("/api/admin/products", {
+      const response = await fetch("/api/products-admin", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -182,7 +182,7 @@ export function AdminProducts() {
     if (!confirm("Are you sure you want to delete this product?")) return
 
     try {
-      const response = await fetch(`/api/admin/products?id=${id}`, {
+      const response = await fetch(`/api/products-admin?id=${id}`, {
         method: "DELETE",
       })
 
