@@ -58,6 +58,15 @@ const nextConfig = {
     
     return config
   },
+  // Disable problematic features
+  generateBuildId: async () => {
+    return 'build-' + Date.now()
+  },
+  // Experimental features for better performance
+  // Note: optimizeCss requires critters package, removed to avoid build errors
+  // experimental: {
+  //   optimizeCss: true,
+  // },
   // Headers for security and performance
   async headers() {
     return [
