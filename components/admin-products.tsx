@@ -19,6 +19,12 @@ export function AdminProducts() {
     try {
       setIsLoading(true)
       const response = await fetch("/api/admin/products")
+      
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ error: "Unknown error" }))
+        throw new Error(errorData.error || `HTTP ${response.status}: ${response.statusText}`)
+      }
+      
       const data = await response.json()
       if (data.products && Array.isArray(data.products)) {
         // Convert database products to frontend format
@@ -45,7 +51,7 @@ export function AdminProducts() {
       }
     } catch (error) {
       console.error("Failed to load products:", error)
-      toast.error("Failed to load products")
+      toast.error(`Failed to load products: ${error instanceof Error ? error.message : "Unknown error"}`)
     } finally {
       setIsLoading(false)
     }
