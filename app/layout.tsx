@@ -13,11 +13,6 @@ export const metadata: Metadata = {
   description:
     "Premium branded products directly from factories at wholesale prices. Perfect for retailers, resellers, and bulk buyers.",
   generator: "v0.app",
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 5,
-  },
   // Performance optimizations
   robots: {
     index: true,
