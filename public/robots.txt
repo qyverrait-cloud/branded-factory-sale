@@ -1,0 +1,20 @@
+# Branded Factory Sale - Robots.txt
+User-agent: *
+Allow: /
+
+# Disallow admin and API routes
+Disallow: /admin/
+Disallow: /api/
+
+# Allow important pages
+Allow: /
+Allow: /catalogue
+Allow: /contact
+Allow: /about
+
+# Sitemap location
+Sitemap: https://brandedfactorysale.com/sitemap.xml
+
+# Crawl delay (optional)
+Crawl-delay: 1
+

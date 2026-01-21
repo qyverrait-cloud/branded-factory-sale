@@ -1,0 +1,72 @@
+// Prisma schema for Branded Factory Sale
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id            Int      @id @default(autoincrement())
+  name          String   @db.VarChar(255)
+  brand         String   @db.VarChar(100)
+  category      String   @db.VarChar(50)
+  price         Int
+  originalPrice Int      @default(0)
+  discount      Int      @default(0)
+  rating        Float    @default(0)
+  reviews       Int      @default(0)
+  minOrder      Int      @default(1)
+  image         String   @db.VarChar(500)
+  description   String   @db.Text
+  specifications Json?   // Store as JSON
+  inStock       Boolean  @default(true)
+  segment       String?  @db.VarChar(20) // "mens", "womens", "kids" for garments
+  images        Json?    // Array of image URLs
+  videos        Json?    // Array of video URLs
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([category])
+  @@index([brand])
+  @@index([segment])
+}
+
+model Category {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique @db.VarChar(100)
+  description String?  @db.Text
+  image       String?  @db.VarChar(500)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Brand {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique @db.VarChar(100)
+  category    String   @db.VarChar(50)
+  logo        String?  @db.VarChar(500)
+  description String?  @db.Text
+  status      String   @default("active") @db.VarChar(20) // "active" or "inactive"
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([category])
+  @@index([status])
+}
+
+model ContactSubmission {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(255)
+  email     String   @db.VarChar(255)
+  phone     String   @db.VarChar(20)
+  company   String?  @db.VarChar(255)
+  message   String   @db.Text
+  createdAt DateTime @default(now())
+
+  @@index([email])
+  @@index([createdAt])
+}
+

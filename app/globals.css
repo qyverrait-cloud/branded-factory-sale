@@ -1,0 +1,629 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* Pure White Theme - Clean & Minimal */
+/* Light theme tokens */
+:root {
+  /* Pure white color scheme - All white backgrounds with dark text */
+  --background: oklch(1 0 0); /* Pure white background */
+  --foreground: oklch(0.15 0.02 0); /* Deep black for text */
+  --card: oklch(1 0 0); /* Pure white cards */
+  --card-foreground: oklch(0.15 0.02 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.15 0.02 0);
+  --primary: oklch(0.20 0.01 0); /* Dark gray/black for primary buttons */
+  --primary-foreground: oklch(1 0 0); /* White text on dark */
+  --secondary: oklch(0.96 0.005 0); /* Very light gray */
+  --secondary-foreground: oklch(0.15 0.02 0);
+  --muted: oklch(0.98 0.002 0); /* Almost white gray */
+  --muted-foreground: oklch(0.50 0.01 0);
+  --accent: oklch(0.25 0.01 0); /* Dark gray accent */
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.60 0.25 25); /* Strong Red */
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.95 0.005 0); /* Very light gray border */
+  --input: oklch(0.98 0.002 0);
+  --ring: oklch(0.30 0.01 0); /* Dark gray focus ring */
+  --chart-1: oklch(0.30 0.01 0); /* Dark gray */
+  --chart-2: oklch(0.40 0.01 0); /* Medium gray */
+  --chart-3: oklch(0.50 0.01 0); /* Light gray */
+  --chart-4: oklch(0.60 0.01 0); /* Lighter gray */
+  --chart-5: oklch(0.70 0.01 0); /* Lightest gray */
+  --radius: 0.75rem; /* Slightly larger radius for modern look */
+
+  /* Sidebar tokens */
+  --sidebar: oklch(1 0 0); /* White sidebar */
+  --sidebar-foreground: oklch(0.15 0.02 0);
+  --sidebar-primary: oklch(0.20 0.01 0); /* Dark gray */
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.98 0.002 0); /* Almost white */
+  --sidebar-accent-foreground: oklch(0.15 0.02 0);
+  --sidebar-border: oklch(0.95 0.005 0);
+  --sidebar-ring: oklch(0.30 0.01 0);
+
+  /* Sale red and band colors - Pure white theme */
+  --sale-red: oklch(0.30 0.01 0); /* Dark gray for brand badge */
+  --band-top: oklch(1 0 0); /* Pure white top band */
+  --band-top-foreground: oklch(0.15 0.02 0); /* Dark text */
+  --band-mid: oklch(1 0 0); /* Pure white middle band */
+  --band-mid-foreground: oklch(0.15 0.02 0); /* Dark text */
+  --band-bottom: oklch(1 0 0); /* Pure white bottom band */
+  --band-bottom-foreground: oklch(0.15 0.02 0); /* Dark text */
+  --pill-fill: oklch(1 0 0); /* Pure white fill for brand pill */
+}
+
+/* Dark theme tokens - Pure White Dark Mode (kept white) */
+.dark {
+  /* Dark mode - Still white for consistency */
+  --background: oklch(1 0 0); /* Pure white background */
+  --foreground: oklch(0.15 0.02 0); /* Dark text */
+  --card: oklch(1 0 0); /* Pure white cards */
+  --card-foreground: oklch(0.15 0.02 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.15 0.02 0);
+  --primary: oklch(0.20 0.01 0); /* Dark gray/black */
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.96 0.005 0); /* Very light gray */
+  --secondary-foreground: oklch(0.15 0.02 0);
+  --muted: oklch(0.98 0.002 0);
+  --muted-foreground: oklch(0.50 0.01 0);
+  --accent: oklch(0.25 0.01 0); /* Dark gray accent */
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.60 0.25 25);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.95 0.005 0);
+  --input: oklch(0.98 0.002 0);
+  --ring: oklch(0.30 0.01 0);
+  --chart-1: oklch(0.30 0.01 0);
+  --chart-2: oklch(0.40 0.01 0);
+  --chart-3: oklch(0.50 0.01 0);
+  --chart-4: oklch(0.60 0.01 0);
+  --chart-5: oklch(0.70 0.01 0);
+
+  /* Sidebar tokens (dark) */
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0.15 0.02 0);
+  --sidebar-primary: oklch(0.20 0.01 0);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.98 0.002 0);
+  --sidebar-accent-foreground: oklch(0.15 0.02 0);
+  --sidebar-border: oklch(0.95 0.005 0);
+  --sidebar-ring: oklch(0.30 0.01 0);
+
+  /* Sale red and band colors - Pure white theme */
+  --sale-red: oklch(0.30 0.01 0);
+  --band-top: oklch(1 0 0); /* Pure white */
+  --band-top-foreground: oklch(0.15 0.02 0);
+  --band-mid: oklch(1 0 0); /* Pure white */
+  --band-mid-foreground: oklch(0.15 0.02 0);
+  --band-bottom: oklch(1 0 0); /* Pure white */
+  --band-bottom-foreground: oklch(0.15 0.02 0);
+  --pill-fill: oklch(1 0 0); /* Pure white fill for brand pill */
+}
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  /* Improve touch targets on mobile */
+  button, a {
+    @apply touch-manipulation;
+  }
+  /* Smooth theme transitions */
+  * {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 200ms;
+  }
+}
+
+/* Mobile-specific utilities */
+@media (max-width: 640px) {
+  .touch-manipulation {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* Hide scrollbar but keep functionality */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Smooth scrolling for mobile */
+@media (max-width: 768px) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Fade in animation for tagline */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out;
+}
+
+/* Fade in up animation */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+/* Fade in right animation */
+@keyframes fade-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in-right {
+  animation: fade-in-right 1s ease-out forwards;
+  opacity: 0;
+}
+
+/* Float slow animation */
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-20px) translateX(10px) rotate(5deg);
+  }
+  66% {
+    transform: translateY(10px) translateX(-10px) rotate(-5deg);
+  }
+}
+
+.animate-float-slow {
+  animation: float-slow 8s ease-in-out infinite;
+}
+
+/* Pulse slow animation */
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.1);
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 4s ease-in-out infinite;
+}
+
+/* Shimmer wave animation */
+@keyframes shimmer-wave {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer-wave {
+  animation: shimmer-wave 8s linear infinite;
+}
+
+/* Gradient text animation */
+@keyframes gradient-text {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient-text {
+  background: linear-gradient(90deg, #1a1a1a, #4a4a4a, #2a2a2a, #1a1a1a);
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-text 4s linear infinite;
+}
+
+/* Floating card animations */
+@keyframes float-card-1 {
+  0%, 100% {
+    transform: translateY(0px) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(2deg);
+  }
+}
+
+@keyframes float-card-2 {
+  0%, 100% {
+    transform: translateY(0px) rotate(2deg);
+  }
+  50% {
+    transform: translateY(-25px) rotate(-2deg);
+  }
+}
+
+@keyframes float-card-3 {
+  0%, 100% {
+    transform: translateY(0px) translateX(-50%) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-15px) translateX(-50%) rotate(3deg);
+  }
+}
+
+.animate-float-card-1 {
+  animation: float-card-1 6s ease-in-out infinite;
+}
+
+.animate-float-card-2 {
+  animation: float-card-2 7s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+.animate-float-card-3 {
+  animation: float-card-3 5s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+/* Floating product image animation */
+@keyframes float-product-image {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+    opacity: 0.4;
+  }
+  25% {
+    transform: translateY(-30px) translateX(10px) rotate(5deg);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-20px) translateX(-10px) rotate(-5deg);
+    opacity: 0.5;
+  }
+  75% {
+    transform: translateY(-35px) translateX(15px) rotate(3deg);
+    opacity: 0.7;
+  }
+}
+
+.animate-float-product-image {
+  animation: float-product-image 8s ease-in-out infinite;
+}
+
+/* Advanced motion set: arc, drift, sway, rotate-float, bob-x, blob morph */
+@keyframes float-arc {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(12px, -24px) rotate(4deg); }
+  50% { transform: translate(0, -32px) rotate(0deg); }
+  75% { transform: translate(-12px, -24px) rotate(-4deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+.animate-float-arc { animation: float-arc 9s ease-in-out infinite; }
+
+@keyframes drift-slow {
+  0% { transform: translateX(0) translateY(0); }
+  50% { transform: translateX(18px) translateY(-10px); }
+  100% { transform: translateX(0) translateY(0); }
+}
+.animate-drift-slow { animation: drift-slow 10s ease-in-out infinite; }
+
+@keyframes sway-slow {
+  0%, 100% { transform: rotate(-3deg) translateY(0); }
+  50% { transform: rotate(3deg) translateY(-8px); }
+}
+.animate-sway-slow { animation: sway-slow 7s ease-in-out infinite; transform-origin: 50% 10%; }
+
+@keyframes rotate-float {
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-14px) rotate(6deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+.animate-rotate-float { animation: rotate-float 8s ease-in-out infinite; }
+
+@keyframes bob-x {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(16px); }
+}
+.animate-bob-x { animation: bob-x 6s ease-in-out infinite; }
+
+@keyframes blob-morph {
+  0%, 100% { border-radius: 30% 70% 60% 40% / 40% 30% 70% 60%; }
+  50% { border-radius: 60% 40% 30% 70% / 50% 60% 40% 50%; }
+}
+.animate-blob { animation: blob-morph 12s ease-in-out infinite; }
+
+/* Slide in from sides animation */
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+/* Rotate and scale animation */
+@keyframes rotate-scale {
+  0%, 100% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(5deg) scale(1.05);
+  }
+}
+
+.animate-rotate-scale {
+  animation: rotate-scale 4s ease-in-out infinite;
+}
+
+/* Bounce subtle animation */
+@keyframes bounce-subtle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-bounce-subtle {
+  animation: bounce-subtle 3s ease-in-out infinite;
+}
+
+/* Pure White Gradient Utilities */
+.gradient-primary {
+  background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 50%, #e5e5e5 100%);
+  /* White → Light Gray → Medium Gray */
+}
+.gradient-secondary {
+  background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 50%, #f5f5f5 100%);
+  /* Light Gray → White → Light Gray */
+}
+.gradient-dark {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 50%, #1a1a1a 100%);
+  /* Dark → Medium Dark → Dark */
+}
+.gradient-navy-gold {
+  background: linear-gradient(135deg, #ffffff 0%, #e5e5e5 100%);
+  /* White → Light Gray */
+}
+.gradient-gold-navy {
+  background: linear-gradient(135deg, #e5e5e5 0%, #ffffff 100%);
+  /* Light Gray → White */
+}
+.gradient-emerald-navy {
+  background: linear-gradient(135deg, #d4d4d4 0%, #a3a3a3 100%);
+  /* Medium Gray → Dark Gray */
+}
+.gradient-purple-orange {
+  background: linear-gradient(135deg, #e5e5e5 0%, #d4d4d4 100%);
+  /* Light Gray → Medium Gray */
+}
+.text-gradient-primary {
+  background: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.text-gradient-gold {
+  background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.text-gradient-purple {
+  background: linear-gradient(135deg, #3a3a3a 0%, #1a1a1a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.gradient-text {
+  background: linear-gradient(135deg, var(--foreground) 0%, #4a4a4a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.text-red-sale {
+  color: var(--sale-red);
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.btn-professional {
+  background: linear-gradient(135deg, #ffffff 0%, #f97316 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 12px -2px rgba(249, 115, 22, 0.4), 0 2px 4px -1px rgba(249, 115, 22, 0.3);
+  transition: all 0.3s ease;
+}
+.btn-professional:hover {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  box-shadow: 0 10px 20px -4px rgba(249, 115, 22, 0.5), 0 4px 8px -2px rgba(249, 115, 22, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Added custom animations and utilities */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.grid-pattern {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* Utility classes bound to tokens (no direct colors) */
+.sale-red {
+  color: var(--sale-red);
+}
+.border-sale {
+  border-color: var(--sale-red);
+}
+.bg-band-top {
+  background-color: var(--band-top);
+}
+.text-band-top {
+  color: var(--band-top-foreground);
+}
+.bg-band-mid {
+  background-color: var(--band-mid);
+}
+.text-band-mid {
+  color: var(--band-mid-foreground);
+}
+.bg-band-bottom {
+  background-color: var(--band-bottom);
+}
+.text-band-bottom {
+  color: var(--band-bottom-foreground);
+}
+
+/* Brand pill for header */
+.sale-brand-pill {
+  color: var(--sale-red);
+  background-color: var(--pill-fill);
+  border: 1px solid var(--sale-red);
+  padding: 0.25rem 0.6rem;
+  border-radius: 0.5rem;
+  line-height: 1;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.08);
+}
+
+/* Footer utility using the battle green from Screenshot (3) */
+.bfs-footer {
+  background-color: var(--band-bottom);
+  color: var(--band-bottom-foreground);
+}
+.bfs-footer .text-muted-foreground {
+  color: color-mix(in oklab, var(--band-bottom-foreground) 75%, black 25%);
+}
+.bfs-footer a:hover {
+  color: var(--band-bottom-foreground);
+}
