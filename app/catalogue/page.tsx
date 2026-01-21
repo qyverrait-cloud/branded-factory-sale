@@ -3,6 +3,8 @@ import { Footer } from "@/components/footer"
 import { CatalogueContent } from "@/components/catalogue-content"
 import type { Metadata } from "next"
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: "Catalogue",
   description:

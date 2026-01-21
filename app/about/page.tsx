@@ -3,6 +3,8 @@ import { Footer } from "@/components/footer"
 import { AboutContent } from "@/components/about-content"
 import type { Metadata } from "next"
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: "About Us",
   description:
