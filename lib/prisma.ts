@@ -1,8 +1,6 @@
 import { PrismaClient } from "@prisma/client"
 
-const globalForPrisma = globalThis as unknown as {
-  prisma: PrismaClient | undefined
-}
+let prismaInstance: PrismaClient | null = null
 
 // Check if DATABASE_URL is set
 if (!process.env.DATABASE_URL) {
@@ -11,22 +9,16 @@ if (!process.env.DATABASE_URL) {
   console.error("Format: mysql://username:password@host:port/database_name")
 }
 
-// Lazy initialization - only create client when first accessed
-function getPrismaClient() {
-  if (!globalForPrisma.prisma) {
-    globalForPrisma.prisma = new PrismaClient({
+export function getPrisma(): PrismaClient {
+  if (!prismaInstance) {
+    prismaInstance = new PrismaClient({
       log: process.env.NODE_ENV === "development" ? ["error", "warn"] : ["error"],
       errorFormat: "pretty",
     })
   }
-  return globalForPrisma.prisma
+  return prismaInstance
 }
 
-// Export a proxy that creates the client on first use
-export const prisma = new Proxy({} as PrismaClient, {
-  get(target, prop) {
-    const client = getPrismaClient()
-    return client[prop as keyof PrismaClient]
-  }
-})
+// For backward compatibility
+export const prisma = getPrisma()
 
