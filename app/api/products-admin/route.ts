@@ -1,10 +1,12 @@
 import { NextResponse } from "next/server"
-import { getPrisma } from "@/lib/prisma"
+import { prisma } from "@/lib/prisma"
+
+export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
 
 // GET all products
 export async function GET() {
   try {
-    const prisma = getPrisma()
     await prisma.$connect()
     const products = await prisma.product.findMany({
       orderBy: { createdAt: "desc" },
@@ -18,7 +20,6 @@ export async function GET() {
       details: error instanceof Error ? error.message : "Unknown error"
     }, { status: 500 })
   } finally {
-    const prisma = getPrisma()
     await prisma.$disconnect()
   }
 }
