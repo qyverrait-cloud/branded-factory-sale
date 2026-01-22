@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
 
+// Force dynamic rendering for API route
+export const dynamic = 'force-dynamic'
+
 // GET single product by ID
 export async function GET(
   request: Request,
