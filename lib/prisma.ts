@@ -11,6 +11,3 @@ export function getPrisma(): PrismaClient {
   return prismaInstance
 }
 
-// For backward compatibility
-export const prisma = getPrisma()
-

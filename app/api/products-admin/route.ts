@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server"
-import { prisma } from "@/lib/prisma"
+import { getPrisma } from "@/lib/prisma"
 
 // GET all products
 export async function GET() {
   try {
+    const prisma = getPrisma()
     await prisma.$connect()
     const products = await prisma.product.findMany({
       orderBy: { createdAt: "desc" },
@@ -17,6 +18,7 @@ export async function GET() {
       details: error instanceof Error ? error.message : "Unknown error"
     }, { status: 500 })
   } finally {
+    const prisma = getPrisma()
     await prisma.$disconnect()
   }
 }
