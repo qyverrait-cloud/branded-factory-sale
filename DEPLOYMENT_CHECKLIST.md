@@ -1,83 +1,136 @@
 # ✅ Hostinger Deployment Checklist
 
-## 🚀 Quick Deployment Steps
+## 🔧 Before Pushing to GitHub
 
-### 1. Local Testing (Before Deployment)
-- [x] Run `npm run dev` - Website should open at http://localhost:3000
-- [x] Test all pages: Home, About, Catalogue, Contact
-- [x] Test contact form submission
-- [x] Test admin panel at `/admin`
-- [x] Check mobile responsiveness
-- [x] Verify all images load
+### 1. Verify All Files Are Committed
 
-### 2. Build for Production
 ```bash
+# Check for uncommitted files
+git status
+
+# Make sure all components are committed
+git add components/
+git add app/
+git add package.json
+git add postcss.config.mjs
+git add next.config.mjs
+git add prisma/
+
+# Commit if needed
+git commit -m "Fix build dependencies for Hostinger"
+git push
+```
+
+### 2. Verify package.json Changes
+
+Make sure these are in `dependencies` (not `devDependencies`):
+- ✅ `@tailwindcss/postcss`
+- ✅ `postcss`
+- ✅ `tailwindcss`
+
+### 3. Test Build Locally
+
+```bash
+npm install
 npm run build
-npm start  # Test production build locally
 ```
 
-### 3. Hostinger Upload Checklist
+Should complete without errors.
 
-**Files to Upload:**
-- [ ] `.next` folder (entire folder)
-- [ ] `public` folder (entire folder)  
-- [ ] `package.json`
-- [ ] `package-lock.json`
-- [ ] `next.config.mjs`
-- [ ] `.htaccess` (to root directory)
+## 🚀 Hostinger Configuration
 
-**On Server:**
-- [ ] Install dependencies: `npm install --production`
-- [ ] Set environment variables in hPanel
-- [ ] Configure Node.js (version 18+)
-- [ ] Start application with PM2 or Node.js manager
+### Step 1: Update Build Settings
 
-### 4. Environment Variables (Set in hPanel)
+In Hostinger hPanel → **Advanced** → **Git**:
+
+1. **Build Command:**
+   ```bash
+   npm install && npm run build
+   ```
+
+2. **Start Command:**
+   ```bash
+   npm start
+   ```
+
+3. **Node.js Version:** 18.x or 20.x
+
+4. **Install Dependencies:** ✅ Enabled
+
+### Step 2: Environment Variables
+
+Set in hPanel → **Advanced** → **Environment Variables**:
 
 ```
-NEXT_PUBLIC_SITE_URL=https://yourdomain.com
+DATABASE_URL=mysql://u136829732_brandedfactory:Branded232323@localhost:3306/u136829732_brandedfactory
+NEXT_PUBLIC_SITE_URL=https://brandedfactorybhilwara.com
 NODE_ENV=production
 CONTACT_EMAIL=brandedfactorysaleufc@gmail.com
 ```
 
-### 5. Post-Deployment Verification
+### Step 3: After Deployment
 
-- [ ] Website loads at your domain
-- [ ] HTTPS/SSL is active
-- [ ] All pages accessible
-- [ ] Contact form works
-- [ ] Admin panel works
-- [ ] Images load correctly
-- [ ] Mobile responsive
-- [ ] No console errors
+1. **Generate Prisma Client:**
+   ```bash
+   # Via SSH or Terminal
+   cd public_html
+   npx prisma generate
+   ```
 
-### 6. Email Service Setup (For Contact Form)
+2. **Verify Database Tables:**
+   - Check via phpMyAdmin
+   - Or run: `npx prisma db push`
 
-Choose one:
-- [ ] Resend (Recommended) - Add `RESEND_API_KEY` to env vars
-- [ ] SendGrid - Add `SENDGRID_API_KEY` to env vars  
-- [ ] SMTP - Configure SMTP settings in env vars
+3. **Restart Application:**
+   - hPanel → Advanced → Node.js → Restart
 
-## 📝 Important Notes
+## ✅ Verification
 
-1. **Standalone Mode**: Already configured in `next.config.mjs`
-2. **.htaccess**: Already configured for Hostinger
-3. **Contact Page**: Fully editable from admin panel
-4. **API Routes**: Will work with Node.js hosting
+After deployment:
 
-## 🔗 Quick Links
+1. ✅ Build completes successfully
+2. ✅ Health check works: `https://brandedfactorybhilwara.com/api/health`
+3. ✅ Website loads correctly
+4. ✅ Admin panel accessible
+5. ✅ Products can be added
 
-- Local Dev: http://localhost:3000
-- Admin Panel: http://localhost:3000/admin
-- Contact Page: http://localhost:3000/contact
+## 🐛 Troubleshooting
 
-## 📚 Documentation
+### Build Still Fails
 
-- Full Setup Guide: `HOSTINGER_SETUP.md`
-- Deployment Guide: `DEPLOYMENT.md`
-- Hostinger Guide: `HOSTINGER_DEPLOYMENT.md`
+1. **Check Build Logs:**
+   - hPanel → Advanced → Git → View Logs
+
+2. **Verify Dependencies:**
+   ```bash
+   # Via SSH
+   cd public_html
+   npm list @tailwindcss/postcss
+   npm list postcss
+   npm list tailwindcss
+   ```
+
+3. **Clear and Rebuild:**
+   ```bash
+   rm -rf node_modules .next
+   npm install
+   npm run build
+   ```
+
+### Components Not Found
+
+1. **Verify Files in Git:**
+   ```bash
+   git ls-files | grep components
+   ```
+
+2. **Ensure All Files Committed:**
+   ```bash
+   git add .
+   git commit -m "Ensure all files committed"
+   git push
+   ```
 
 ---
 
-**Status**: ✅ Ready for Hostinger Deployment
-
+**Last Updated:** After fixing Hostinger build dependencies
