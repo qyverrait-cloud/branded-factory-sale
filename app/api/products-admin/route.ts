@@ -1,9 +1,8 @@
 import { NextResponse } from "next/server"
-import { PrismaClient } from "@prisma/client"
+import { prisma } from "@/lib/prisma"
 
 // GET all products
 export async function GET() {
-  const prisma = new PrismaClient()
   try {
     await prisma.$connect()
     const products = await prisma.product.findMany({
@@ -24,7 +23,6 @@ export async function GET() {
 
 // POST create new product
 export async function POST(request: Request) {
-  const prisma = new PrismaClient()
   try {
     const body = await request.json()
     const {
@@ -46,7 +44,6 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
     }
 
-    await prisma.$connect()
     const product = await prisma.product.create({
       data: {
         name,
@@ -84,15 +81,12 @@ export async function POST(request: Request) {
       { error: "Unknown server error" },
       { status: 500 }
     )
-  } finally {
-    await prisma.$disconnect()
   }
 }
 
 
 // PUT update product
 export async function PUT(request: Request) {
-  const prisma = new PrismaClient()
   try {
     const body = await request.json()
     const { id, ...updateData } = body
@@ -101,7 +95,6 @@ export async function PUT(request: Request) {
       return NextResponse.json({ error: "Product ID is required" }, { status: 400 })
     }
 
-    await prisma.$connect()
     const product = await prisma.product.update({
       where: { id: Number(id) },
       data: {
@@ -116,16 +109,12 @@ export async function PUT(request: Request) {
   } catch (error) {
     console.error("Admin products PUT error:", error)
     return NextResponse.json({ error: "Failed to update product" }, { status: 500 })
-  } finally {
-    await prisma.$disconnect()
   }
 }
 
 // DELETE product
 export async function DELETE(request: Request) {
-  const prisma = new PrismaClient()
   try {
-    await prisma.$connect()
     const { searchParams } = new URL(request.url)
     const id = searchParams.get("id")
 
@@ -153,8 +142,6 @@ export async function DELETE(request: Request) {
   } catch (error) {
     console.error("Admin products DELETE error:", error)
     return NextResponse.json({ error: "Failed to delete product" }, { status: 500 })
-  } finally {
-    await prisma.$disconnect()
   }
 }
 
