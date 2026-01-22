@@ -102,7 +102,7 @@ export async function POST(request: Request) {
       { status: 500 }
     )
   }
-
+}
 
 // PUT update product
 export async function PUT(request: Request) {
@@ -163,4 +163,3 @@ export async function DELETE(request: Request) {
     return NextResponse.json({ error: "Failed to delete product" }, { status: 500 })
   }
 }
-
