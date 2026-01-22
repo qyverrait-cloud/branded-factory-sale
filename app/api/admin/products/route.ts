@@ -59,22 +59,48 @@ export async function POST(request: Request) {
     })
 
     return NextResponse.json({ product, success: true })
-  }  catch (error) {
-  if (error instanceof Error) {
+  } catch (error) {
+    console.error("Admin products POST error:", error)
+    
+    // Log detailed error for debugging
+    if (error instanceof Error) {
+      console.error("Error message:", error.message)
+      console.error("Error stack:", error.stack)
+      
+      // Check if it's a Prisma error
+      if (error.message.includes("P1001") || error.message.includes("Can't reach database")) {
+        return NextResponse.json(
+          {
+            error: "Database connection failed. Please check your database configuration.",
+            details: process.env.NODE_ENV === "development" ? error.message : undefined,
+          },
+          { status: 500 }
+        )
+      }
+      
+      if (error.message.includes("P2002") || error.message.includes("Unique constraint")) {
+        return NextResponse.json(
+          {
+            error: "Product with this name already exists",
+            details: process.env.NODE_ENV === "development" ? error.message : undefined,
+          },
+          { status: 400 }
+        )
+      }
+      
+      return NextResponse.json(
+        {
+          error: error.message || "Failed to create product",
+          details: process.env.NODE_ENV === "development" ? error.stack : undefined,
+        },
+        { status: 500 }
+      )
+    }
+
     return NextResponse.json(
-      {
-        error: error.message,
-        stack: error.stack,
-      },
+      { error: "Unknown server error" },
       { status: 500 }
     )
-  }
-
-  return NextResponse.json(
-    { error: "Unknown server error" },
-    { status: 500 }
-  )
-}
   }
 
 

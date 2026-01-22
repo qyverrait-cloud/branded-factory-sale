@@ -107,11 +107,16 @@ export function AdminProducts() {
           mutate((key) => typeof key === "string" && key.startsWith("/api/products"))
         }
       } else {
-        toast.error("Failed to add product")
+        // Get error message from response
+        const errorData = await response.json().catch(() => ({}))
+        const errorMessage = errorData.error || `Failed to add product (Status: ${response.status})`
+        console.error("Add product error:", errorMessage, errorData)
+        toast.error(errorMessage)
       }
     } catch (error) {
       console.error("Add product error:", error)
-      toast.error("Failed to add product")
+      const errorMessage = error instanceof Error ? error.message : "Failed to add product"
+      toast.error(errorMessage)
     }
   }
 
