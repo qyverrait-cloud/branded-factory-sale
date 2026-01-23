@@ -1,3 +1,9 @@
+import path from 'path'
+import { fileURLToPath } from 'url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   eslint: {
@@ -21,11 +27,37 @@ const nextConfig = {
   output: 'standalone', // Required for Hostinger deployment
   // Optimize production builds
   productionBrowserSourceMaps: false,
-  // Experimental features for better performance
-  // Note: optimizeCss requires critters package, removed to avoid build errors
-  // experimental: {
-  //   optimizeCss: true,
-  // },
+  // Webpack configuration for better module resolution
+  webpack: (config, { isServer }) => {
+    // Ensure proper module resolution with path alias
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': path.resolve(__dirname),
+    }
+    
+    // Add components and app directories to module resolution
+    config.resolve.modules = [
+      ...(config.resolve.modules || []),
+      path.resolve(__dirname, 'components'),
+      path.resolve(__dirname, 'app'),
+      path.resolve(__dirname, 'lib'),
+    ]
+    
+    // Ensure all file extensions are resolved
+    config.resolve.extensions = [
+      '.js',
+      '.jsx',
+      '.ts',
+      '.tsx',
+      '.json',
+      ...(config.resolve.extensions || []),
+    ]
+    
+    // Disable symlinks for better resolution
+    config.resolve.symlinks = false
+    
+    return config
+  },
   // Headers for security and performance
   async headers() {
     return [
